@@ -100,7 +100,7 @@
                 return vm.movieIds.length > 0 ? true : false;
             }, "Please select a moive")
 
-            $("#rental").validate({
+            var validator= $("#rental").validate({
                 submitHandler: function () {
 
 
@@ -110,10 +110,13 @@
                         data: vm
                     }).done(function () {
                         toastr.success("Rental is saved successfully.");
-                        vm.customerId = 0;
-                        vm.movieIds = [];
-                        $("#movies").children("li").remove();
+
+                        vm = { movieIds: [] };
+
+                        $("#movies").empty();
                         $("#customer").typeahead("val", "");
+                        $("#movie").typeahead("val", "");
+                        validator.resetForm();
 
                     }).fail(function () {
                         toastr.fail("Sorry something went wrong.!");
