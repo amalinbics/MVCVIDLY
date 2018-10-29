@@ -13,7 +13,9 @@ namespace Asp.Net_Identity
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootbox.js",
                       "~/Scripts/DataTables/jquery.datatables.js",
-                      "~/Scripts/DataTables/datatables.bootstrap.js"));
+                      "~/Scripts/DataTables/datatables.bootstrap.js",
+                      "~/Scripts/typeahead.bundle.js",
+                      "~/Scripts/toastr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
@@ -31,8 +33,10 @@ namespace Asp.Net_Identity
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/DataTables/css/datatables.bootstrap.css"));
+                      "~/Content/DataTables/css/datatables.bootstrap.css",
+                      "~/Content/typeahead.css",
+                      "~/Content/toastr.css",
+                      "~/Content/site.css"));
         }
     }
 }

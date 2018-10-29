@@ -32,6 +32,8 @@ namespace Asp.Net_Identity.Controllers.api
                 if (item.NoInAvailable == 0)
                     return BadRequest("Movie is not Available");
 
+                item.NoInAvailable = item.NoInAvailable - 1;
+
                 var rental = new Rental {
                     Customer = customer,
                     Movie = item,

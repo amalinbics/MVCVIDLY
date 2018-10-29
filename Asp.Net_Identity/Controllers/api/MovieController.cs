@@ -11,7 +11,7 @@ using System.Data.Entity;
 
 namespace Asp.Net_Identity.Controllers.api
 {
-    [Authorize]
+
     public class MovieController : ApiController
     {
         private readonly ApplicationDbContext _context;
@@ -20,10 +20,23 @@ namespace Asp.Net_Identity.Controllers.api
         {
             _context = new ApplicationDbContext();
         }
-        
-        public IHttpActionResult GetMovies()
+
+        public IHttpActionResult GetMovies(string query = null)
         {
-            return Ok(_context.Movies.Include(m => m.Genre).ToList().Select(Mapper.Map<Movie,MovieDto>));
+            var movies = _context.Movies
+                .Include(m => m.Genre)
+                .Where(m => m.NoInAvailable > 0);
+
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                movies = movies.Where(m => m.Name.Contains(query));
+            }
+
+            var movieDto = movies.
+                ToList().
+                Select(Mapper.Map<Movie, MovieDto>);
+
+            return Ok(movieDto);
         }
 
         public IHttpActionResult GetMovie(int id)
@@ -41,7 +54,7 @@ namespace Asp.Net_Identity.Controllers.api
         public IHttpActionResult DeleteMovie(int id)
         {
             var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);
-            if(movieInDb == null)
+            if (movieInDb == null)
             {
                 return NotFound();
             }

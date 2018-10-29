@@ -10,7 +10,7 @@ using System.Web.Http;
 using System.Data.Entity;
 namespace Asp.Net_Identity.Controllers.api
 {
-    
+
     public class CustomerController : ApiController
     {
         private readonly ApplicationDbContext _context;
@@ -19,9 +19,19 @@ namespace Asp.Net_Identity.Controllers.api
             _context = new ApplicationDbContext();
         }
 
-        public IHttpActionResult GetCustomer()
+        public IHttpActionResult GetCustomer(string query = null)
         {
-            return Ok(_context.Customers.Include(c => c.MemberShipType).ToList().Select(Mapper.Map<Customer, CustomerDto>));
+            var customersQuery = _context.Customers
+                 .Include(c => c.MemberShipType);
+
+            if (!String.IsNullOrWhiteSpace(query))
+                customersQuery = customersQuery.Where(c => c.Name.Contains(query));
+
+            var customerDtos = customersQuery
+                .ToList()
+                .Select(Mapper.Map<Customer, CustomerDto>);
+
+            return Ok(customerDtos);
         }
         [HttpDelete]
         public IHttpActionResult DeleteCustomer(int id)
