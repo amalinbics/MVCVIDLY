@@ -9,7 +9,7 @@ namespace Asp.Net_Identity.DTO
 {
     public class CustomerDto
     {
-        //test test
+        
         public int Id { get; set; }
 
         [Required]
