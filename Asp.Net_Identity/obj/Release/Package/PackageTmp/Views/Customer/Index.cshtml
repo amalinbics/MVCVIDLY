@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<hr />
+
+@Html.ActionLink("Create New", "New", null, new { @class = "btn btn-primary" })
+
+<br />
+<br />
+
+<table id="Customer" class="table table-bordered table-hover">
+
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                MemberShipType
+            </th>
+            <th>
+                Delete
+            </th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @*@foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(item.Name, "Edit", new { Id = item.Id }) </td>
+                    <td>@item.MemberShipType.Name</td>
+                    <td> <button class="btn-link js-delete" data-customer-id="@item.Id">Delete</button> </td>
+                </tr>
+            }*@
+    </tbody>
+</table>
+
+@section scripts    {
+    <script>
+
+        $(document).ready(
+            function () {
+                var dataTable = $("#Customer").DataTable({
+                    ajax: {
+                        url: "/api/Customer",
+                        dataSrc:""
+                    },
+                    columns:[
+                        {
+                            data: "name",
+                            render: function (data, type, customer) {
+                                return "<a href=/customer/Edit/" + customer.id + ">" + customer.name + "</a>"
+                            }
+                        },
+                        {
+                            data: "memberShipType.name"
+                        },
+                        {
+                            data:"id",
+                            render: function (data) {
+                                return "<button class='btn-link js-delete' data-customer-id=" + data + "> Delete </button>"
+                            }
+                        }
+
+                    ]
+                }
+
+                );
+
+                $("#Customer").on("click", ".js-delete", function () {
+                    var button = $(this);
+                    bootbox.confirm("Are you sure to delete this customer", function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "/api/Customer/" + button.attr("data-customer-id"),
+                                method: "DELETE",
+                                success: function () {
+                                    console.log(button.parents("tr"));
+                                    dataTable.row(button.parents("tr")).remove().draw();
+                                }
+                            });
+                        }
+                    })
+                });
+            }
+        );
+
+
+    </script>
+}
+

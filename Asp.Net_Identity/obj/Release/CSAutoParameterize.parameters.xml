@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-Asp.Net_Identity-20181023082255.mdf;Initial Catalog=aspnet-Asp.Net_Identity-20181023082255;Integrated Security=True" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="c:\\users\\arockiaraj\\source\\repos\\Asp\.Net_Identity\\Asp\.Net_Identity\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
-  </parameter>
-  <parameter name="AspNetIndentity-Web.config Connection String" description="AspNetIndentity Connection String used in web.config by the application to access the database." defaultValue="server=FSWWIN-PC074\SQL2016;database=AspNetIdentity;uid=sa;pwd=fsww.123" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="c:\\users\\arockiaraj\\source\\repos\\Asp\.Net_Identity\\Asp\.Net_Identity\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='AspNetIndentity']/@connectionString" />
-  </parameter>
-</parameters>
